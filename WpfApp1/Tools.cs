@@ -186,15 +186,21 @@ namespace WpfApp1
             var base_layer_height = HfpData["base_layer_height"];
 
             string outputCut = "";
-            int extruderCount = 1;
+            int extruderCount = 2;
             var maxColor = Colors.Count;
+            var swapCount = 0;
+            var maxSwaps = Colors.Count - 1;
             foreach (JValue value in HfpData["slider_values"])
             {
-                var zHeight = (value.Value<double>() - 1) * layer_height.Value<double>() + base_layer_height.Value<double>();
-                var currentExtruder = maxColor - extruderCount - 1;
-                var colorhere = Colors[extruderCount - 1];
-                outputCut += "<layer top_z=\"" + zHeight + "\" type=\"2\" extruder=\"" + extruderCount + "\" color=\"" + colorhere.Value<string>() + "\" extra=\"\" gcode=\"tool_change\"/>\r\n";
-                extruderCount++;
+                if (swapCount < maxSwaps)
+                { // weird color swap storage in hueforge
+                    var zHeight = (value.Value<double>()) * layer_height.Value<double>() + base_layer_height.Value<double>();
+                    var currentExtruder = maxColor - extruderCount - 1;
+                    var colorhere = Colors[extruderCount - 1];
+                    outputCut += "<layer top_z=\"" + zHeight + "\" type=\"2\" extruder=\"" + extruderCount + "\" color=\"" + colorhere.Value<string>() + "\" extra=\"\" gcode=\"tool_change\"/>\r\n";
+                    extruderCount++;
+                }
+                swapCount++;
             }
 
             var cutXml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n" +

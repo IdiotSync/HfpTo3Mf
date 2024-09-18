@@ -185,14 +185,17 @@ namespace WpfApp1
 
             string outputCut = "";
             int extruderCount = 1;
-            var maxColor = Colors.Count;
+            var swapCount = 0;
+            var maxSwaps = Colors.Count-1;
             foreach (JValue value in HfpData["slider_values"])
             {
-                var zHeight = (value.Value<double>()) * layer_height.Value<double>() + base_layer_height.Value<double>();
-                var currentExtruder = maxColor - extruderCount - 1;
-                var colorhere = Colors[extruderCount - 1];
-                outputCut += "<code print_z=\"" + zHeight + "\" type=\"0\" extruder=\"1\" color=\"" + colorhere.Value<string>() + "\" extra=\"\" gcode=\"M600\"/>\r\n";
-                extruderCount++;
+                if (swapCount < maxSwaps) { // weird color swap storage in hueforge
+                    var zHeight = (value.Value<double>()) * layer_height.Value<double>() + base_layer_height.Value<double>();
+                    var colorhere = Colors[extruderCount];
+                    outputCut += "<code print_z=\"" + zHeight + "\" type=\"0\" extruder=\"1\" color=\"" + colorhere.Value<string>() + "\" extra=\"\" gcode=\"M600\"/>\r\n";
+                    extruderCount++;
+                }
+                swapCount++;
             }
 
             var cutXml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n" +
@@ -253,20 +256,19 @@ namespace WpfApp1
             projectData = projectData.Replace("{first_layer_height}", "" + Math.Round(base_layer_height.Value<double>(), 2).ToString());
             projectData = projectData.Replace("{layer_height}", "" + Math.Round(layer_height.Value<double>(), 2).ToString());
             JArray filament_set = new JArray();
+            JProperty lastColor = null;
             foreach (JObject value in (JArray)HfpData["filament_set"])
             {
                 foreach (var property in value.Properties())
                 {
                     if (property.Name == "Color")
                     {
-                        if (filament_set.Count == 0)
-                        {
-                            projectData = projectData.Replace("{firstColor}", "" + property.Value);
-                        }
                         filament_set.AddFirst(property.Value);
+                        lastColor = property;
                     }
                 }
             }
+            projectData = projectData.Replace("{firstColor}", "" + lastColor.Value);
 
             string contentXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\">" +
