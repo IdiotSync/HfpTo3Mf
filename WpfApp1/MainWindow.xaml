@@ -37,8 +37,7 @@
             <Border Grid.Column="0"
                     BorderBrush="Black"
                     BorderThickness="2">
-                <Grid Background="#FF6BE160" 
-                      AllowDrop="True">
+                <Grid Background="#FF6BE160">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="3*"/>
@@ -80,8 +79,7 @@
             <Border Grid.Column="1"
                     BorderBrush="Black"
                     BorderThickness="2">
-                <Grid Background="#FFFFD09C"
-                      AllowDrop="True">
+                <Grid Background="#FFFFD09C">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="3*"/>
