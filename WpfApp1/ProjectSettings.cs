@@ -1,14 +1,13 @@
+﻿using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-
-using Newtonsoft.Json.Linq;
-using Windows.UI.Xaml.Controls;
-
-namespace App2
+namespace WpfApp1
 {
-
-    public sealed partial class MainPage : Page
+    public class ProjectSettings
     {
-        JObject projectJson = JObject.Parse($@"{{
+        public static JObject projectJson = JObject.Parse($@"{{
   ""accel_to_decel_enable"": ""0"",
   ""accel_to_decel_factor"": ""50%"",
   ""activate_air_filtration"": [
