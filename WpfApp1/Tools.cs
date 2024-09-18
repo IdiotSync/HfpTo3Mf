@@ -301,6 +301,14 @@ namespace WpfApp1
             projectSettings["filament_type"] = filament_type;
             projectSettings["filament_vendor"] = filament_vendor;
 
+            string contentTypeXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                "<Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\">" +
+                " <Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\"/>" +
+                " <Default Extension=\"model\" ContentType=\"application/vnd.ms-package.3dmanufacturing-3dmodel+xml\"/>" +
+                " <Default Extension=\"png\" ContentType=\"image/png\"/>" +
+                " <Default Extension=\"gcode\" ContentType=\"text/x.gcode\"/>" +
+                "</Types>";
+
             string cutXml = getCuttingInfo(HfpData, filament_set);
 
             using (FileStream zipToOpen = new FileStream(outputPath, FileMode.Create))
@@ -314,7 +322,7 @@ namespace WpfApp1
                     AddToArchive(archive, "Metadata/slice_info.config", sliceInfoXml);
                     AddToArchive(archive, "Metadata/project_settings.config", projectSettings.ToString());
                     AddToArchive(archive, "Metadata/custom_gcode_per_layer.xml", cutXml);
-                    //AddToArchive(archive, "[Content_Types].xml", cutXml);
+                    AddToArchive(archive, "[Content_Types].xml", contentTypeXml);
                 }
             }
         }
