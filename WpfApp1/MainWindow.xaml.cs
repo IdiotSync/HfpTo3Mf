@@ -91,7 +91,7 @@ namespace WpfApp1
                     StatusLabel.Content = "Status : Generating .3mf for " + filename;
                     await Task.Run(() =>
                     {
-                        Tools.CreatePackage(filename);
+                        Tools.CreatePrusaPackage(filename);
                         projectsCount++;
                     });
                     StatusLabel.Content = "Status : Completed .3mf generation for " + filename;
@@ -113,7 +113,7 @@ namespace WpfApp1
                     StatusLabel.Content = "Status : Generating .3mf for " + filename;
                     await Task.Run(() =>
                     {
-                        Tools.CreatePrusaPackage(filename);
+                        Tools.CreatePackage(filename);
                         projectsCount++;
                     });
                     StatusLabel.Content = "Status : Completed .3mf generation for " + filename;

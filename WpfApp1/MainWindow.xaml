@@ -12,8 +12,8 @@
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Rectangle x:Name="BBLDrop_Copy" AllowDrop="True" HorizontalAlignment="Left" Height="358" Stroke="Black" VerticalAlignment="Top" Width="400" Fill="#FF6BE160" Grid.Column="1"/>
-        <Rectangle x:Name="PrusaDrop_Copy" AllowDrop="True" HorizontalAlignment="Right" Height="358" Margin="400,0,0,0" VerticalAlignment="Top" Width="400" Grid.Column="1" Drop="PrusaDrop_Drop" Fill="#FFFFD09C" Stroke="Black"/>
+        <Rectangle x:Name="BBLBg" HorizontalAlignment="Left" Height="358" Stroke="Black" VerticalAlignment="Top" Width="400" Fill="#FF6BE160" Grid.Column="1"/>
+        <Rectangle x:Name="PrusaBg" HorizontalAlignment="Right" Height="358" Margin="400,0,0,0" VerticalAlignment="Top" Width="400" Grid.Column="1" Drop="PrusaDrop_Drop" Fill="#FFFFD09C" Stroke="Black"/>
         <Rectangle x:Name="BBLDrop" AllowDrop="True" HorizontalAlignment="Left" Height="243" Stroke="Black" VerticalAlignment="Center" Width="400" Grid.Column="1" Drop="BBLDrop_Drop">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="/bambuArea2.png"/>
