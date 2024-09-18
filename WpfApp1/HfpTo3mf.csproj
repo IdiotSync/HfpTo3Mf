@@ -9,7 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="bambuArea2.png" />
+    <None Remove="prusaArea2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="bambuArea2.png" />
+    <Resource Include="prusaArea2.png" />
   </ItemGroup>
 
 </Project>

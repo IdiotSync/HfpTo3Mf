@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -80,6 +79,49 @@ namespace WpfApp1
                 StatusLabel.Content = "Status : Idle";
             StartBambu.IsEnabled = true;
             StartPrusa.IsEnabled = true;
+        }
+
+        private async void PrusaDrop_Drop(object sender, DragEventArgs e)
+        {
+            string[] fileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+            int projectsCount = 0;
+            foreach (string filename in fileList)
+            {
+                if (filename.EndsWith(".hfp")) {
+                    StatusLabel.Content = "Status : Generating .3mf for " + filename;
+                    await Task.Run(() =>
+                    {
+                        Tools.CreatePackage(filename);
+                        projectsCount++;
+                    });
+                    StatusLabel.Content = "Status : Completed .3mf generation for " + filename;
+                }
+                else
+                    StatusLabel.Content = "Status : Skipped wrong file " + filename;
+            }
+            StatusLabel.Content = "Status : Completed .3mf generation for " + projectsCount + " projects.";
+        }
+
+        private async void BBLDrop_Drop(object sender, DragEventArgs e)
+        {
+            string[] fileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+            int projectsCount = 0;
+            foreach (string filename in fileList)
+            {
+                if (filename.EndsWith(".hfp"))
+                {
+                    StatusLabel.Content = "Status : Generating .3mf for " + filename;
+                    await Task.Run(() =>
+                    {
+                        Tools.CreatePrusaPackage(filename);
+                        projectsCount++;
+                    });
+                    StatusLabel.Content = "Status : Completed .3mf generation for " + filename;
+                }
+                else
+                    StatusLabel.Content = "Status : Skipped wrong file " + filename;
+            }
+            StatusLabel.Content = "Status : Completed .3mf generation for " + projectsCount + " projects.";
         }
     }
 }
