@@ -13,9 +13,10 @@
         </Grid.ColumnDefinitions>
         <Rectangle HorizontalAlignment="Left" Height="159" Stroke="Black" VerticalAlignment="Center" Width="232" Grid.Column="1"/>
         <Rectangle HorizontalAlignment="Left" Height="159" Margin="407,0,0,0" Stroke="Black" VerticalAlignment="Center" Width="232" Grid.Column="1"/>
-        <Button Content="Generate Bambu Studio/OrcaSlicer .3mf" HorizontalAlignment="Left" Height="35" Margin="0,78,0,0" VerticalAlignment="Top" Width="232" Click="GenerateBBL" Grid.Column="1"/>
-        <Button Content="Generate PrusaSlicer .3mf" HorizontalAlignment="Left" Height="35" Margin="407,78,0,0" VerticalAlignment="Top" Width="232" Click="GeneratePrusa" Grid.Column="1"/>
-        <Label Content="test version : 3mf settings shouldn't be trusted" HorizontalAlignment="Left" Margin="0,362,0,0" VerticalAlignment="Top" Height="32" Width="326" Grid.Column="1"/>
+        <Button Name="StartBambu" Content="Generate Bambu Studio/OrcaSlicer .3mf" HorizontalAlignment="Left" Height="35" Margin="0,78,0,0" VerticalAlignment="Top" Width="232" Click="GenerateBBL" Grid.Column="1"/>
+        <Button Name="StartPrusa" Content="Generate PrusaSlicer .3mf" HorizontalAlignment="Left" Height="35" Margin="407,78,0,0" VerticalAlignment="Top" Width="232" Click="GeneratePrusa" Grid.Column="1"/>
+        <Label Content="test version : slicer settings shouldn't be trusted" HorizontalAlignment="Left" Margin="390,392,0,0" VerticalAlignment="Top" Height="32" Width="326" Grid.Column="1"/>
+        <Label Name="StatusLabel" Grid.Column="1" Content="Status : Idle" HorizontalAlignment="Left" Margin="0,358,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.52,0.54" Width="639"/>
 
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -21,8 +22,10 @@ namespace WpfApp1
             InitializeComponent();
         }
 
-        private void GeneratePrusa(object sender, RoutedEventArgs e)
+        private async void GeneratePrusa(object sender, RoutedEventArgs e)
         {
+            StartBambu.IsEnabled = false;
+            StartPrusa.IsEnabled = false;
             var dialog = new Microsoft.Win32.OpenFileDialog();
             dialog.FileName = "Document"; // Default file name
             dialog.DefaultExt = ".hfp"; // Default file extension
@@ -36,12 +39,23 @@ namespace WpfApp1
             {
                 // Open document
                 string filename = dialog.FileName;
-                Tools.CreatePrusaPackage(filename);
+                StatusLabel.Content = "Status : Generating .3mf for " + filename;                
+                await Task.Run(() =>
+                {
+                    Tools.CreatePrusaPackage(filename);
+                });
+                StatusLabel.Content = "Status : Completed .3mf generation for " + filename;
             }
+            else
+                StatusLabel.Content = "Status : Idle";
+            StartBambu.IsEnabled = true;
+            StartPrusa.IsEnabled = true;
         }
 
-        private void GenerateBBL(object sender, RoutedEventArgs e)
+        private async void GenerateBBL(object sender, RoutedEventArgs e)
         {
+            StartBambu.IsEnabled = false;
+            StartPrusa.IsEnabled = false;
             var dialog = new Microsoft.Win32.OpenFileDialog();
             dialog.FileName = "Document"; // Default file name
             dialog.DefaultExt = ".hfp"; // Default file extension
@@ -55,8 +69,17 @@ namespace WpfApp1
             {
                 // Open document
                 string filename = dialog.FileName;
-                Tools.CreatePackage(filename);
+                StatusLabel.Content = "Status : Generating .3mf for " + filename;
+                await Task.Run(() =>
+                {
+                    Tools.CreatePackage(filename);
+                });
+                StatusLabel.Content = "Status : Completed .3mf generation for " + filename;
             }
+            else
+                StatusLabel.Content = "Status : Idle";
+            StartBambu.IsEnabled = true;
+            StartPrusa.IsEnabled = true;
         }
     }
 }
