@@ -25,6 +25,10 @@ namespace WpfApp1
         {
             StartBambu.IsEnabled = false;
             StartPrusa.IsEnabled = false;
+            StartBambuDrop.IsEnabled = false;
+            StartBambuDrop.IsEnabled = false;
+            StartBambuDrop.AllowDrop = false;
+            StartPrusaDrop.AllowDrop = false;
             var dialog = new Microsoft.Win32.OpenFileDialog();
             dialog.FileName = "Document"; // Default file name
             dialog.DefaultExt = ".hfp"; // Default file extension
@@ -49,12 +53,20 @@ namespace WpfApp1
                 StatusLabel.Content = "Status : Idle";
             StartBambu.IsEnabled = true;
             StartPrusa.IsEnabled = true;
+            StartBambuDrop.IsEnabled = true;
+            StartBambuDrop.IsEnabled = true;
+            StartBambuDrop.AllowDrop = true;
+            StartPrusaDrop.AllowDrop = true;
         }
 
         private async void GenerateBBL(object sender, RoutedEventArgs e)
         {
             StartBambu.IsEnabled = false;
             StartPrusa.IsEnabled = false;
+            StartBambuDrop.IsEnabled = false;
+            StartBambuDrop.IsEnabled = false;
+            StartBambuDrop.AllowDrop = false;
+            StartPrusaDrop.AllowDrop = false;
             var dialog = new Microsoft.Win32.OpenFileDialog();
             dialog.FileName = "Document"; // Default file name
             dialog.DefaultExt = ".hfp"; // Default file extension
@@ -79,12 +91,22 @@ namespace WpfApp1
                 StatusLabel.Content = "Status : Idle";
             StartBambu.IsEnabled = true;
             StartPrusa.IsEnabled = true;
+            StartBambuDrop.IsEnabled = true;
+            StartBambuDrop.IsEnabled = true;
+            StartBambuDrop.AllowDrop = true;
+            StartPrusaDrop.AllowDrop = true;
         }
 
         private async void PrusaDrop_Drop(object sender, DragEventArgs e)
         {
             string[] fileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
             int projectsCount = 0;
+            StartBambu.IsEnabled = false;
+            StartPrusa.IsEnabled = false;
+            StartBambuDrop.IsEnabled = false;
+            StartBambuDrop.IsEnabled = false;
+            StartBambuDrop.AllowDrop = false;
+            StartPrusaDrop.AllowDrop = false;
             foreach (string filename in fileList)
             {
                 if (filename.EndsWith(".hfp")) {
@@ -100,12 +122,25 @@ namespace WpfApp1
                     StatusLabel.Content = "Status : Skipped wrong file " + filename;
             }
             StatusLabel.Content = "Status : Completed .3mf generation for " + projectsCount + " projects.";
+
+            StartBambu.IsEnabled = true;
+            StartPrusa.IsEnabled = true;
+            StartBambuDrop.IsEnabled = true;
+            StartBambuDrop.IsEnabled = true;
+            StartBambuDrop.AllowDrop = true;
+            StartPrusaDrop.AllowDrop = true;
         }
 
         private async void BBLDrop_Drop(object sender, DragEventArgs e)
         {
             string[] fileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
             int projectsCount = 0;
+            StartBambu.IsEnabled = false;
+            StartPrusa.IsEnabled = false;
+            StartBambuDrop.IsEnabled = false;
+            StartBambuDrop.IsEnabled = false;
+            StartBambuDrop.AllowDrop = false;
+            StartPrusaDrop.AllowDrop = false;
             foreach (string filename in fileList)
             {
                 if (filename.EndsWith(".hfp"))
@@ -113,6 +148,7 @@ namespace WpfApp1
                     StatusLabel.Content = "Status : Generating .3mf for " + filename;
                     await Task.Run(() =>
                     {
+
                         Tools.CreatePackage(filename);
                         projectsCount++;
                     });
@@ -122,6 +158,13 @@ namespace WpfApp1
                     StatusLabel.Content = "Status : Skipped wrong file " + filename;
             }
             StatusLabel.Content = "Status : Completed .3mf generation for " + projectsCount + " projects.";
+
+            StartBambu.IsEnabled = true;
+            StartPrusa.IsEnabled = true;
+            StartBambuDrop.IsEnabled = true;
+            StartBambuDrop.IsEnabled = true;
+            StartBambuDrop.AllowDrop = true;
+            StartPrusaDrop.AllowDrop = true;
         }
     }
 }

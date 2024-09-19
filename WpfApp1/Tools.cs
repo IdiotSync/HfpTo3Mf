@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.IO.Compression;
 using System.Numerics;
 using System.Text;
-using System.Threading.Tasks;
-using System.Reflection.Emit;
-using System.Data.SqlTypes;
 using System.Xml;
-using System.Net.Mime;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Windows.Controls;
 
 
 namespace WpfApp1
@@ -24,7 +15,6 @@ namespace WpfApp1
         private static string getModelInfo(string rawStl)
         {
             string verticeTriangles = importBinary(rawStl);
-            // return package;
             return verticeTriangles;
         }
         private static byte[] ReadAllBytes(Stream stream)
@@ -81,16 +71,17 @@ namespace WpfApp1
                 {
                     using (BinaryReader br = new BinaryReader(File.Open(fileName, FileMode.Open)))
                     {
+                        //int batchSize = 50;
                         byte[] header = br.ReadBytes(80);
                         byte[] length = br.ReadBytes(4);
                         int numberOfSurfaces = BitConverter.ToInt32(length, 0);
                         string headerInfo = Encoding.UTF8.GetString(header, 0, header.Length).Trim();
                         System.Diagnostics.Debug.WriteLine(String.Format("Number of faces:{0}", numberOfSurfaces));
 
+                        //byte[] batch = br.ReadBytes(batchSize);
                         byte[] full = ReadAllBytes(br.BaseStream);
-                        byte[] block = new byte[50];
                         int surfCount = 0;
-                        while (surfCount < numberOfSurfaces)
+                        while (/*batch != null && */surfCount < numberOfSurfaces)
                         {
                             byte[] xComp = new byte[4];
                             byte[] yComp = new byte[4];
@@ -146,6 +137,7 @@ namespace WpfApp1
                                 }
                             }
                             surfCount++;
+                            //batch = br.ReadBytes(batchSize);
                         }
                     }
 
@@ -228,7 +220,8 @@ namespace WpfApp1
                 stlOrig = stlOrig.Substring(stlOrig.LastIndexOf("\\") + 1);
             else if (stlOrig.LastIndexOf("/") > 0)
                 stlOrig = stlOrig.Substring(stlOrig.LastIndexOf("/") + 1);
-            string outputPath = inputFile.Replace("hfp", "3mf");
+            //string outputPath = inputFile.Replace("hfp", "3mf");
+            string outputPath = inputFile.Replace(".hfp", "_BBL.3mf");
             var stlName = Folder + stlOrig;
             var bblXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" +
                 "<model unit=\"millimeter\" xml:lang=\"en-US\" xmlns=\"http://schemas.microsoft.com/3dmanufacturing/core/2015/02\" xmlns:BambuStudio=\"http://schemas.bambulab.com/package/2021\" xmlns:p=\"http://schemas.microsoft.com/3dmanufacturing/production/2015/06\" requiredextensions=\"p\">\r\n" +

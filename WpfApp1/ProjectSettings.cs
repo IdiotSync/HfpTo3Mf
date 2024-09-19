@@ -7,6 +7,7 @@ namespace WpfApp1
 {
     public class ProjectSettings
     {
+
         public static JObject projectJson = JObject.Parse($@"{{
   ""accel_to_decel_enable"": ""0"",
   ""accel_to_decel_factor"": ""50%"",

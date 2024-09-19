@@ -63,7 +63,8 @@
                     <Grid  Grid.Row="1"
                            Background="#55000000"
                            AllowDrop="True"
-                           Drop="BBLDrop_Drop">
+                           Drop="BBLDrop_Drop"
+                           Name="StartBambuDrop">
                         <TextBlock
                                Text="Drop here for BambuStudio / OrcaSlicer"
                                HorizontalAlignment="Center"
@@ -107,7 +108,8 @@
                     <Grid  Grid.Row="1"
                            Background="#55000000"
                            AllowDrop="True"
-                           Drop="PrusaDrop_Drop">
+                           Drop="PrusaDrop_Drop"
+                           Name="StartPrusaDrop">
                         <TextBlock
                                Text="Drop here for PrusaSlicer"
                                HorizontalAlignment="Center"

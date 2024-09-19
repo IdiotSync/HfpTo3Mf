@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.IO.Compression;
 using System.Numerics;
 using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Reflection.Emit;
-using System.Data.SqlTypes;
 using System.Xml;
-using System.Net.Mime;
-using System.Windows.Controls;
 
 
 namespace WpfApp1
@@ -25,7 +15,6 @@ namespace WpfApp1
         private static async Task<string> getPrusaModelInfo(string rawStl)
         {
             string verticeTriangles = importPrusaBinary(rawStl);
-            // return package;
             return verticeTriangles;
         }
 
@@ -100,7 +89,6 @@ namespace WpfApp1
                         System.Diagnostics.Debug.WriteLine(String.Format("Number of faces:{0}", numberOfSurfaces));
                         maxSurfaces = numberOfSurfaces - 1;
                         byte[] full = ReadAllBytes(br.BaseStream);
-                        byte[] block = new byte[50];
                         int surfCount = 0;
                         while (surfCount < numberOfSurfaces)
                         {
@@ -220,7 +208,7 @@ namespace WpfApp1
                 stlOrig = stlOrig.Substring(stlOrig.LastIndexOf("\\") + 1);
             else if (stlOrig.LastIndexOf("/") > 0)
                 stlOrig = stlOrig.Substring(stlOrig.LastIndexOf("/") + 1);
-            string outputPath = inputFile.Replace("hfp", "3mf");
+            string outputPath = inputFile.Replace(".hfp", "_Prusa.3mf");
             var stlName = Folder + stlOrig;
 
 
